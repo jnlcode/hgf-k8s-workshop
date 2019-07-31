@@ -46,9 +46,15 @@ You can install the ingress controller by running this command:
 
 #### Certificate manager
 
-You can install the certificate manager, to ensure you can auto-generate the TLS certificates
+Before installing the certificate manager, we must install the cert-manager CRDs and add the Jetstack Helm repository.
 
-    helm install stable/cert-manager -n cert-manager --namespace cert-manager
+    kubectl apply -f https://raw.githubusercontent.com/jetstack/cert-manager/release-0.9/deploy/manifests/00-crds.yaml
+    
+    helm repo add jetstack https://charts.jetstack.io
+
+Then you can install the certificate manager, to ensure you can auto-generate the TLS certificates. 
+
+    helm install -n cert-manager --namespace cert-manager jetstack/cert-manager
 
 Then we need to add the Staging and Production cluster issuers
 
@@ -72,7 +78,12 @@ Alternatively, you may not use the Ingress at all and disable it, and instead us
 
 Create the required namespaces:
 
-    kubectl create ns cas orderers peers
+    kubectl create ns cas
+    
+    kubectl create ns orderers
+
+    kubectl create ns peers
+
 
 ### Fabric CA
 
