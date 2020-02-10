@@ -44,7 +44,7 @@ Install the RBAC for Hellm and create the tiller service account:
 
     kubectl create -f helm-rbac.yaml
     
-    helm init --service-acount=tiller
+    helm init --service-account=tiller
 
 #### NGINX Ingress controller
 
